@@ -42,15 +42,14 @@ if archivo_csv is not None:
     else:
         st.title("Datos de todas las sucursales")
 
-    # Procesar y mostrar estadísticas por producto
     productos = datos['Producto'].unique()
     for producto in productos:
         with st.container():
-            # Filtrar datos por producto
+            
             st.subheader(f"{producto}")
             datos_producto = datos[datos['Producto'] == producto]
 
-            # Calcular estadísticas
+            
             datos_producto['Precio_promedio'] = datos_producto['Ingreso_total'] / datos_producto['Unidades_vendidas']
             precio_promedio = datos_producto['Precio_promedio'].mean()
             precio_promedio_anual = datos_producto.groupby('Año')['Precio_promedio'].mean()
@@ -66,16 +65,15 @@ if archivo_csv is not None:
             unidades_por_año = datos_producto.groupby('Año')['Unidades_vendidas'].sum()
             variacion_anual_unidades = unidades_por_año.pct_change().mean() * 100
 
-            # Crear columnas para métricas y gráficos
+            
             col_izq, col_der = st.columns([0.25, 0.75])
 
-            # Mostrar métricas en la columna izquierda
             with col_izq:
                 st.metric('Precio Promedio', f"${precio_promedio:,.0f}", f"{variacion_precio_promedio_anual:.2f}%")
                 st.metric('Margen Promedio', f"{margen_promedio:.0f}%", f"{variacion_margen_promedio_anual:.2f}%")
                 st.metric('Unidades Vendidas', f"{unidades_vendidas:,.0f}", f"{variacion_anual_unidades:.2f}%")
 
-            # Mostrar gráfico de evolución de ventas en la columna derecha
+           
             with col_der:
                 datos_producto['Fecha'] = pd.to_datetime(datos_producto['Año'].astype(str) + '-' + datos_producto['Mes'].astype(str) + '-01')
                 datos_producto.sort_values('Fecha', inplace=True)
