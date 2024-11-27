@@ -71,8 +71,8 @@ if archivo_csv is not None:
 
             # Mostrar métricas en la columna izquierda
             with col_izq:
-                st.metric('Precio Promedio', f"${precio_promedio:,.2f}", f"{variacion_precio_promedio_anual}%")
-                st.metric('Margen Promedio', f"{margen_promedio:.2f}%", f"{variacion_margen_promedio_anual}%")
+                st.metric('Precio Promedio', f"${precio_promedio:,}", f"{variacion_precio_promedio_anual:.2f}%")
+                st.metric('Margen Promedio', f"{margen_promedio}%", f"{variacion_margen_promedio_anual:.2f}%")
                 st.metric('Unidades Vendidas', f"{unidades_vendidas:,.0f}", f"{variacion_anual_unidades:.2f}%")
 
             # Mostrar gráfico de evolución de ventas en la columna derecha
